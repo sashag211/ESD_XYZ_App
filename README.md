@@ -4,6 +4,6 @@ ESD Java web app
 Please clone the project and add the missing sub folders from the zipped file. I could not add them to the folder.
 
 Task to do:
-Login filter
-CSS
-Testing
+Login filter,
+CSS,
+Testing,
