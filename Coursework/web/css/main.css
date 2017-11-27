@@ -1,0 +1,215 @@
+@import url(navBar.css);
+@import url(header.css);
+
+/*Main content, Created on : 27-Nov-2017, 13:16:36   Author: Frazer, Sasha*/
+body {
+    font-family: Arial;
+    background-color: #000000;
+    padding: 50px;
+}
+
+.content {
+    margin: 30px;
+    padding: 30px;
+}
+
+.content h1 {
+    font-family: Arial;
+    color: #1f191a;
+    text-align: center;
+}
+
+.content h2 {
+    font-family: Arial;
+    color: #1f191a;
+    text-align: center;
+}
+
+.content table {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    border-collapse: separate;
+    border-radius: 3px;
+}
+
+.content td, th {
+    text-align: center;
+    padding: 5px;
+    border-left:solid black 1px;
+    border-top:solid black 1px;
+}
+
+.content th {
+    background-color: #eeeeee;
+    border-top: none;
+}
+
+td:first-child {
+    border-left: none;
+}
+th:first-child {
+    border-left: none;
+}
+/*Copyright (c) 2016 by Tushar Sonawane (http://codepen.io/Tushkiz/pen/xqfsy)*/
+
+* {
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+.main {
+    margin: 100px auto;
+    width: 300px;
+}
+.content-screen {
+    background-color: #eee;
+    padding: 20px;
+    border-radius: 5px
+}
+
+.title {
+    text-align: center;
+    color: #777;
+}
+
+.form {
+    text-align: center;
+}
+
+.control-group {
+    margin-bottom: 10px;
+}
+
+.input-label{
+    width: 100%;
+    text-align: left;
+    padding-left: 7px;
+    margin-bottom: 5px;
+}
+
+label{
+    font-weight: bold;
+    font-size: 16px;
+    color: #777777;
+}
+
+.houseNumber{
+    width: 50px;
+    float: left;
+    margin-left: 5px;
+}
+
+.streetname{
+    width: 190px;
+    margin-bottom: 5px;
+}
+
+input {
+    text-align: center;
+    background-color: #fff;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 10px 0;
+    width: 250px;
+    transition: border .5s;
+}
+
+input:focus {
+    border: 2px solid #3498DB;
+    box-shadow: none;
+}
+
+.radio {
+    width: 10px;
+}
+
+.btn {
+    border: 2px solid transparent;
+    background: #3498DB;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 10px 0;
+    text-decoration: none;
+    text-shadow: none;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: none;
+    transition: 0.25s;
+    display: block;
+    width: 250px;
+    margin: 5px auto;
+}
+
+.btn:hover {
+    background-color: #2980B9;
+}
+
+/* Logout Button */
+
+.logout {
+    width: 120px;
+    float: right;
+    position: fixed;
+    z-index: 100;
+    top: 20px;
+    left: 90%; 
+}
+
+.logoutBtn {
+    border: 2px solid;
+    border-color: #004d00;
+    background: #008000;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 10px 0;    
+    text-decoration: none;
+    text-shadow: none;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: none;
+    transition: 0.25s;
+    display: block;
+    width: 120px; 
+}
+
+.logoutBtn:hover {
+    background-color: #2980B9;
+}
+
+/* Error message */
+.error {
+    padding: 20px;
+    color: #FF0000;
+    border: 3px solid #FD8F8F;
+    border-radius: 5px;
+}
+
+.errorMessageBtn {
+
+    color: #000000;
+    font-weight: bold;
+    float: right;
+    font-size: 25px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.errorMessageBtn:hover {
+    color: #FF0000;
+}
+
+#autocomplete {
+    position: relative;
+    width: 250px;;
+    margin-bottom: 10px;
+}
+
