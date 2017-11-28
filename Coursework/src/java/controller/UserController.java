@@ -139,7 +139,7 @@ public class UserController extends HttpServlet {
         try {
             if (isMember(bean, user)) {
                 temp = getRowNum(bean, "id", "Claims");
-                bean.executeSQLUpdate("INSERT INTO `Claims`(`id`, `mem_id`, `date`, `rationale`, `status`, `amount`) "
+                bean.executeSQLUpdate("INSERT INTO CLAIMS('id', 'mem_id', 'date', 'rationale', 'status', 'amount') "
                         + "VALUES (" + ((long) temp.get(0) + 1) + ",'" + user + "','" + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "','" + rationale + "'," + "'SUBMITTED'" + "," + amount + ")");
                 request.setAttribute("confirm", "succeeded");
             } else {
@@ -162,16 +162,16 @@ public class UserController extends HttpServlet {
         float amount = Float.parseFloat(request.getParameter("amount"));
         try {
             currentBalanceArr = checkBalance(bean, user);
-            float currentBal = (float) currentBalanceArr.get(0);
+            Double currentBal = (Double) currentBalanceArr.get(0);
             request.setAttribute("balance", currentBal);
             if (amount <= 0) {
                 request.setAttribute("balance", currentBal);
                 request.setAttribute("confirm", "failed, incorrect value");
             } else if (currentBal >= amount) {
                 numOfRows = getRowNum(bean, "id", "payments");
-                bean.executeSQLUpdate("INSERT INTO `payments`(`id`, `mem_id`, `type_of_payment`, `amount`, `date`) "
+                bean.executeSQLUpdate("INSERT INTO PAYMENTS('id', 'mem_id', 'type_of_payment', 'amount', 'date') "
                         + "VALUES (" + ((long) numOfRows.get(0) + 1) + ",'" + user + "','" + paymentType + "'," + amount + ",'" + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "')");
-                bean.executeSQLUpdate("UPDATE `Members` SET `balance`=" + (currentBal - amount) + " WHERE id='" + user
+                bean.executeSQLUpdate("UPDATE MEMBERS SET \"balance\"=" + (currentBal - amount) + " WHERE \"id=\"'" + user
                         + "'");
                 request.setAttribute("balance", (currentBal - amount));
                 request.setAttribute("confirm", "succeeded");
@@ -196,7 +196,7 @@ public class UserController extends HttpServlet {
     private void listUserTable(JDBCBean bean, HttpServletRequest request, String table) {
         ArrayList list;
         try {
-            list = (ArrayList) bean.sqlQueryToArrayList("SELECT * FROM `" + table + "` WHERE mem_id='" + request.getParameter("username") + "'");
+            list = (ArrayList) bean.sqlQueryToArrayList("SELECT * FROM " + table + " WHERE \"mem_id\"='" + request.getParameter("username") + "'");
             request.setAttribute("data", list);
         } catch (SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,7 +209,7 @@ public class UserController extends HttpServlet {
 //        AND Members.id=users.id AND Members.id='t-fisher'
         ArrayList userStatus;
         try {
-            userStatus = (ArrayList) bean.sqlQueryToArrayList("SELECT Members.status FROM Members INNER JOIN users ON Members.status=users.status AND Members.id=users.id AND Members.id='" + user + "'").get(0);
+            userStatus = (ArrayList) bean.sqlQueryToArrayList("SELECT MEMBERS.\"status\" FROM Members INNER JOIN USERS ON MEMBERS.\"status\"=USERS.\"status\" AND MEMBERS.\"id\"=USERS.\"id\" AND MEMBERS.\"id\"='" + user + "'").get(0);
             if (((String) userStatus.get(0)).equals("APPROVED")) {
                 return true;
             }
