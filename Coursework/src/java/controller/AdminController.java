@@ -122,9 +122,9 @@ public class AdminController extends HttpServlet {
         ArrayList requestedPayments = new ArrayList();
 
         try {
-            requestedMember = bean.sqlQueryToArrayList("SELECT * FROM members WHERE id='" + memberID + "'");
-            requestedClaims = bean.sqlQueryToArrayList("SELECT * FROM claims WHERE mem_id='" + memberID + "'");
-            requestedPayments = bean.sqlQueryToArrayList("SELECT * FROM payments WHERE mem_id='" + memberID + "'");
+            requestedMember = bean.sqlQueryToArrayList("SELECT * FROM MEMBERS WHERE \"id\"='" + memberID + "'");
+            requestedClaims = bean.sqlQueryToArrayList("SELECT * FROM CLAIMS WHERE \"mem_id\"='" + memberID + "'");
+            requestedPayments = bean.sqlQueryToArrayList("SELECT * FROM PAYMENTS WHERE \"mem_id\"='" + memberID + "'");
         } catch (SQLException ex) {
             System.out.println("SQL failed to execute in AdminController, getMember. " + ex);
         }
@@ -152,7 +152,7 @@ public class AdminController extends HttpServlet {
         ArrayList claim = new ArrayList();
 
         try {
-            claim = (ArrayList) bean.sqlQueryToArrayList("SELECT * FROM claims WHERE id='" + claimID + "'").get(0);
+            claim = (ArrayList) bean.sqlQueryToArrayList("SELECT * FROM CLAIMS WHERE \"id\"='" + claimID + "'").get(0);
         } catch (SQLException ex) {
             System.out.println("SQL failed to execute in AdminController, getClaim. " + ex);
         }
@@ -170,11 +170,11 @@ public class AdminController extends HttpServlet {
         String memberID = request.getParameter("manageMemberAction").split("_")[1];
 
         if (action.equalsIgnoreCase("suspend")) {
-            bean.executeSQLUpdate("UPDATE members SET status='SUSPENDED' WHERE id='" + memberID + "'");
-            bean.executeSQLUpdate("UPDATE users SET status='SUSPENDED' WHERE id='" + memberID + "'");
+            bean.executeSQLUpdate("UPDATE MEMBERS SET \"status\"='SUSPENDED' WHERE \"id\"='" + memberID + "'");
+            bean.executeSQLUpdate("UPDATE USERS SET \"status\"='SUSPENDED' WHERE \"id\"='" + memberID + "'");
         } else if (action.equalsIgnoreCase("resume")) {
-            bean.executeSQLUpdate("UPDATE members SET status='APPROVED' WHERE id='" + memberID + "'");
-            bean.executeSQLUpdate("UPDATE users SET status='APPROVED' WHERE id='" + memberID + "'");
+            bean.executeSQLUpdate("UPDATE MEMBERS SET \"status\"='APPROVED' WHERE \"id\"='" + memberID + "'");
+            bean.executeSQLUpdate("UPDATE USERS SET \"status\"='APPROVED' WHERE \"id\"='" + memberID + "'");
         }
         getMemberById(bean, request, memberID);
     }
@@ -187,8 +187,8 @@ public class AdminController extends HttpServlet {
         String memberID = request.getParameter("manageMemberAction").split("_")[1];
 
         if (action.equalsIgnoreCase("approve")) {
-            bean.executeSQLUpdate("UPDATE members SET status='APPROVED' WHERE id='" + memberID + "'");
-            bean.executeSQLUpdate("UPDATE users SET status='APPROVED' WHERE id='" + memberID + "'");
+            bean.executeSQLUpdate("UPDATE MEMBERS SET \"status\"='APPROVED' WHERE \"id\"='" + memberID + "'");
+            bean.executeSQLUpdate("UPDATE USERS SET \"status\"='APPROVED' WHERE \"id\"='" + memberID + "'");
        }
 
         getMemberById(bean, request, memberID);
@@ -202,9 +202,9 @@ public class AdminController extends HttpServlet {
         String claimID = request.getParameter("manageClaimAction").split("_")[1];
 
         if (action.equalsIgnoreCase("accept")) {
-            bean.executeSQLUpdate("UPDATE claims SET status='APPROVED' WHERE id='" + claimID + "'");
+            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='APPROVED' WHERE \"id\"='" + claimID + "'");
         } else if (action.equalsIgnoreCase("reject")) {
-            bean.executeSQLUpdate("UPDATE claims SET status='REJECTED' WHERE id='" + claimID + "'");
+            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='REJECTED' WHERE \"id\"='" + claimID + "'");
         }
         getMemberByClaimId(bean, request, claimID);
     }
@@ -217,8 +217,8 @@ public class AdminController extends HttpServlet {
         ArrayList activeMembers = new ArrayList();
 
         try {
-            approvedClaims = (ArrayList) bean.sqlQueryToArrayList("SELECT SUM(amount) FROM claims WHERE status='APPROVED' AND date >= DATE_SUB(NOW(),INTERVAL 1 YEAR)").get(0);
-            activeMembers = (ArrayList) bean.sqlQueryToArrayList("SELECT COUNT(*) FROM members WHERE status='APPROVED'").get(0);
+            approvedClaims = (ArrayList) bean.sqlQueryToArrayList("SELECT SUM(amount) FROM CLAIMS WHERE \"status\"='APPROVED' AND \"date\" >= DATE_SUB(NOW(),INTERVAL 1 YEAR)").get(0);
+            activeMembers = (ArrayList) bean.sqlQueryToArrayList("SELECT COUNT(*) FROM MEMBERS WHERE \"status\"='APPROVED'").get(0);
         } catch (SQLException ex) {
             System.out.println("SQL failed to execute in AdminController, chargeMembers. " + ex);
         }
@@ -229,7 +229,7 @@ public class AdminController extends HttpServlet {
         String membersCharge = Double.toString(sumOfClaims / sumOfActiveMembers);
 
         //Add charge to active members balance
-        bean.executeSQLUpdate("UPDATE members SET balance=balance + " + membersCharge + " WHERE status='APPROVED'");
+        bean.executeSQLUpdate("UPDATE MEMBERS SET \"balance\"=\"balance\" + " + membersCharge + " WHERE \"status\"='APPROVED'");
 
         request.setAttribute("membersCharge", membersCharge);
     }
