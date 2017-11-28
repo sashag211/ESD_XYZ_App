@@ -36,11 +36,12 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        // Check if session is still valid
+        //Check if session is still valid
 //        if (session.getAttribute("username") == null) {
 //            RequestDispatcher view = request.getRequestDispatcher("/docs/Login");
 //            view.forward(request, response);
 //        }
+     
         JDBCBean bean = (JDBCBean) getServletContext().getAttribute("JDBCBean");
 
         //Find JSP that refered resource
@@ -76,7 +77,7 @@ public class UserController extends HttpServlet {
         request.getRequestDispatcher(include).forward(request, response);
 
         // Store info in request attribute
-        // request.setAttribute("user", username);
+        //request.setAttribute("user", username);
         // Logined, forward to /WEB-INF/views/userInfoView.jsp
         //RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/docs/UserDashboard");
         //RequestDispatcher view = request.getRequestDispatcher("/docs/UserDashboard");

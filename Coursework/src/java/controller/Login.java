@@ -30,18 +30,22 @@ public class Login extends HttpServlet {
         JDBCBean bean = (JDBCBean) getServletContext().getAttribute("JDBCBean");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        
         String errorMessage = "";
         boolean loginValidation = false;
         HttpSession session = request.getSession();
+        
 
         ArrayList<ArrayList<Object>> requestedUserDetail = new ArrayList<>();
 
+        //checks if user exists in USERS table
         try {
             requestedUserDetail = bean.sqlQueryToArrayList("SELECT * FROM ROOT.USERS WHERE \"id\"='" + username + "'");
         } catch (SQLException ex) {
             System.out.println("SQL Login statement failed to execute! ");
             ex.printStackTrace();
         }
+               
 
         // Checks if the getUsername or password is empty 
         if (username == null || password == null || username.length() == 0 || password.length() == 0) {
