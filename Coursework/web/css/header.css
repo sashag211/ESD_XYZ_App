@@ -1,4 +1,4 @@
-/*Header image and title, Created on : 27-Nov-2017, 13:16:36    Author: Frazer, Sasha*/
+/*Header image and title, Created on : 27-Nov-2017, 13:16:36    Author: Muneeb, Frazer, Sasha,*/
 
 .header {
     position: fixed;
@@ -7,31 +7,34 @@
     width: 100%;
     height: 80px;
     z-index: 10;
-    background: #eeeeee;
-    -webkit-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
-    -moz-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
-    box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+    background: #3f3f3f;
+    webkit-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+    moz-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 7px 8px rgba(0, 0, 0, 0.40);
 }
 
 .header-logo {
     width: 325px;
     height: 80px;
+    alignment-adjust: middle;
     overflow: hidden;
 }
 #header-img {
-    width: 60px;
-    height: 60px;    
-    margin: 10px;
+    width: 100px;
+    height: 100px;    
+    margin: 2px;
     float: left;
 }
 
 #header-txt {
     width: 300px;
-    height: 40px;
-    margin: 5px;
-    padding-top: 15px;
-    font-family: Arial;
-    color: #FF0000;   
+    height: 12px;
+    text-height: 20px;
+    margin: 6px;
+    align-self: center;
+    padding-top: 40px;
+    font-family: Open Sans light;
+    color: #ffffff;   
 }
 
 
