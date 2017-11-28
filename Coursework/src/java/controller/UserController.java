@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.JDBCBean;
 
-//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha
+//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha, Jack
 
 public class UserController extends HttpServlet {
 
@@ -209,7 +209,7 @@ public class UserController extends HttpServlet {
 //        AND Members.id=users.id AND Members.id='t-fisher'
         ArrayList userStatus;
         try {
-            userStatus = (ArrayList) bean.sqlQueryToArrayList("SELECT MEMBERS.\"status\" FROM Members INNER JOIN USERS ON MEMBERS.\"status\"=USERS.\"status\" AND MEMBERS.\"id\"=USERS.\"id\" AND MEMBERS.\"id\"='" + user + "'").get(0);
+            userStatus = (ArrayList) bean.sqlQueryToArrayList("SELECT MEMBERS.\"status\" FROM MEMBERS INNER JOIN USERS ON MEMBERS.\"status\"=USERS.\"status\" AND MEMBERS.\"id\"=USERS.\"id\" AND MEMBERS.\"id\"='" + user + "'").get(0);
             if (((String) userStatus.get(0)).equals("APPROVED")) {
                 return true;
             }
