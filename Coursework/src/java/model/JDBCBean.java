@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha
+//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha, Jack
 
 public class JDBCBean implements Serializable {
 
@@ -188,4 +190,32 @@ public class JDBCBean implements Serializable {
         }
         return rows;
     }
+    
+    private void select(String query){
+        //Statement statement = null;
+        
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            //statement.close();
+        }
+        catch(SQLException e) {
+            System.out.println("way way"+e);
+            //results = e.toString();
+        }
+    }
+    
+    public boolean exists(String username, String password, String status) {
+        boolean bool = false;
+        try  {
+            select("SELECT * FROM USERS WHERE \"id\"='"+username+"' AND \"password\"='" + password + "' AND \"status\"='"+status+"'");
+            if(resultSet.next()) {     
+                bool = true;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(JDBCBean.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return bool;
+    }
+    
 }//End JDBCBean
