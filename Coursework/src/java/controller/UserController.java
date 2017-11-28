@@ -126,7 +126,7 @@ public class UserController extends HttpServlet {
     public void getBalance(JDBCBean bean, HttpServletRequest request) {
         String user = request.getParameter("username");
         ArrayList currentBalanceArr = checkBalance(bean, user);
-        float currentBal = (float) currentBalanceArr.get(0);
+        Double currentBal = (Double) currentBalanceArr.get(0);
         request.setAttribute("balance", currentBal);
 
     }
