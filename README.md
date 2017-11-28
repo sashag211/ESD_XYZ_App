@@ -1,7 +1,7 @@
 # ESD_XYZ_App
 ESD Java web app
 
-Please clone the project and add the missing sub folders from the zipped file. I could not add them to the folder.
+Please clone the project and make sure you keep uptodate with all changes made, if needed make another branch to upload your app.
 
 Task to do:Login filter,CSS,Testing,user dashboard, admin dashboard
 
