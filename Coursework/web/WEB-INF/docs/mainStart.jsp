@@ -8,7 +8,7 @@
         <div class="title">
             <h1>Welcome to XYZ</h1>
         </div>
-        <a class="btn" href="${pageContext.request.contextPath}/docs/Login">Login Page</a>
-        <a class="btn" href="${pageContext.request.contextPath}/docs/Registration">Registration Page</a>
+        <a class="btn" href="${pageContext.request.contextPath}/docs/Login">Login</a>
+        <a class="btn" href="${pageContext.request.contextPath}/docs/Registration">Register</a>
     </div>
 </div>
