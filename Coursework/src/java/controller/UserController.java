@@ -186,7 +186,7 @@ public class UserController extends HttpServlet {
 
     private ArrayList checkBalance(JDBCBean bean, String user) {
         try {
-            return (ArrayList) bean.sqlQueryToArrayList("SELECT `balance` FROM `Members` WHERE id='" + user + "'").get(0);
+            return (ArrayList) bean.sqlQueryToArrayList("SELECT \"balance\" FROM ROOT.Members WHERE \"id\"='" + user + "'").get(0);
         } catch (SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
