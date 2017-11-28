@@ -71,7 +71,7 @@ public class Login extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("/docs/Login");
             view.forward(request, response);
             // If the user is admin redirect to admin page
-        } else if (requestedUserDetail.get(0).get(2).equals("ADMIN")) {
+        } else if (bean.exists(username,password,"ADMIN")) {
             //Making it thread safe
             synchronized (session) {
                 // Store user info in Session
@@ -82,6 +82,18 @@ public class Login extends HttpServlet {
             response.addCookie(userID);
 
             response.sendRedirect(request.getContextPath() + "/docs/admin/AdminDashboard");
+        }
+        else if (bean.exists(username, password, "APPROVED")) {
+            //Making it thread safe
+            synchronized (session) {
+                // Store user info in Session
+                session.setAttribute("username", username);
+            }
+            Cookie userID = new Cookie("username", username);
+            //Store user info in Cookie
+            response.addCookie(userID);
+
+            response.sendRedirect(request.getContextPath() + "/docs/user/UserDashboard");
         } else {
             //Making it thread safe
             synchronized (session) {
