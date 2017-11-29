@@ -2,7 +2,7 @@
     Document   : GoogleAddressLookUp
     Created on : 27-Nov-2017, 13:16:36
     Author     : Frazer, Sasha
-    API Key    : AIzaSyAfehuzhqVFVXYvJEs5fHUkYetReZ3Zrz4
+    API Key    : AIzaSyCG-RSpM-f6kamg7UDvtvJ_UeemNhcunVk
 --%>
 
 <script>
@@ -74,6 +74,5 @@
 
 
 </script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfehuzhqVFVXYvJEs5fHUkYetReZ3Zrz4&libraries=places&callback=initAutocomplete"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG-RSpM-f6kamg7UDvtvJ_UeemNhcunVk&libraries=places&callback=initAutocomplete"
 async defer></script>

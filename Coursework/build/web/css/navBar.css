@@ -2,15 +2,16 @@
 .navBar {
     height: 100%;
     width: 150px;
-    position: fixed;
-    left: 0; 
+    position: fixed; 
     top: 100px;
-    overflow: hidden;
-    background-color: #000000;
+    left:0;
+    overflow: hidden;   
+    
 }
 
 ul.menu  {
     padding: 10px;
+    
 }
 
 ul.menu  li {
@@ -19,12 +20,12 @@ ul.menu  li {
 }
 
 ul.menu  li  a{
-    background-color: #eeeeee;
-    font-family: Lato;
+    background-color: #ffffff;
+    font-family: "Times New Roman", Times, serif;
     color: #1f191a;
     padding: 5px 10px;
     text-decoration: none;
-    border-radius: 4px 4px 0 0;   
+    border-radius: 4px 4px 0 0;
 }
 
 ul.menu li a:hover {

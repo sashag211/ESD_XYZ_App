@@ -3,8 +3,8 @@
 .header {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 500px;
     height: 100px;
     background: #333333;
 }
@@ -19,14 +19,14 @@
 #header-img {
     width: 100px;
     height: 100px;
-    float: left;
+    float: right;
 }
 
 #header-txt {
     font-family: "Times New Roman", Times, serif;
     font-size: 40px;
-    float: left;
-    color: #ffffff;   
+    float: right;
+    color: #ffffff;
 }
 
 

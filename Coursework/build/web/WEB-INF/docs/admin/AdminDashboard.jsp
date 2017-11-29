@@ -10,7 +10,7 @@
 
 <div class="content">
     <h1>Admin Dashboard</h1>
-    <h1>Welcome admin!</h1>    
+    <h1>Welcome, select an option from the left.</h1>    
 </div>
 
 
