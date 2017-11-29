@@ -40,7 +40,8 @@
             <tr>
                 <th>Type</th>
                 <th>Amount</th>
-                <th>Date</th>                          
+                <th>Date</th>
+                <th>Time</th> 
             </tr>
             <c:forEach items="${requestedPayments}" var="row" varStatus="rowStatus">
                 <tr>
