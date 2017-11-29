@@ -2,13 +2,12 @@
 <%-- 
     Document   : main
     Created on : 27-Nov-2017, 13:16:36
-    Author     : Frazer, Sasha, Jack
+    Author     : Frazer, Sasha
 --%>
-
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/resources/AdminDashboardNavBar.jsp" %>
-<%--
+
 <div class="content">
     <h1>Admin Dashboard</h1>
 
@@ -53,7 +52,7 @@
                 <c:forEach items="${row}" var="column" varStatus="columnStatus">
                     <c:choose>
                         <c:when test="${columnStatus.last}">
-                            <td>Â£${column}</td>
+                            <td>£${column}</td>
                         </c:when>
                         <c:otherwise>
                             <td>${column}</td>
@@ -83,7 +82,7 @@
                 <c:forEach items="${row}" var="column" varStatus="columnStatus">
                     <c:choose>
                         <c:when test="${columnStatus.last}">
-                            <td>Â£${column}</td>                           
+                            <td>£${column}</td>                           
                         </c:when>
                         <c:otherwise>
                             <td>${column}</td>
@@ -112,7 +111,7 @@
                 <c:forEach items="${row}" var="column" varStatus="columnStatus">
                     <c:choose>
                         <c:when test="${columnStatus.index eq 3}">
-                            <td>Â£${column}</td>
+                            <td>£${column}</td>
                         </c:when>
                         <c:otherwise>
                             <td>${column}</td>
@@ -124,13 +123,4 @@
     </table>
 </div>
 
---%>
-
-<div class="main">
-    <div class="content-screen">
-        <div class="title">
-            <h1>Welcome <br>${adminUsername}</h1>
-        </div>              
-    </div>
-</div>
 

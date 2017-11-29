@@ -1,11 +1,19 @@
 @import url(navBar.css);
 @import url(header.css);
 
-/*Main content, Created on : 27-Nov-2017, 13:16:36   Author: Frazer, Sasha*/
+/*Main content, Created on : 27-Nov-2017, 13:16:36   Author: Frazer, Sasha, Muneeb*/
+
+html {
+    height: 100%;
+    width: 100%;
+}
 body {
-    font-family: Arial;
+    background-image:url(../resources/back.jpg);
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position:center;
+    font-family: "Times New Roman", Times, serif;
     background-color: #ffffff;
-    padding: 10px;
 }
 
 .content {
@@ -14,13 +22,14 @@ body {
 }
 
 .content h1 {
-    font-family: Arial;
-    color: #1f191a;
-    text-align: center;
+    font-family: Lato;
+    text-shadow: 2px 2px #474747;
+    color: #ffffff;
+    text-align: left;
 }
 
 .content h2 {
-    font-family: Arial;
+    font-family: Lato;
     color: #1f191a;
     text-align: center;
 }
@@ -32,18 +41,19 @@ body {
     border: 1px solid black;
     border-collapse: separate;
     border-radius: 3px;
+    background-color: #ffffff;
 }
 
 .content td, th {
     text-align: center;
-    padding: 5px;
+    padding: 10px;
     border-left:solid black 1px;
     border-top:solid black 1px;
 }
 
 .content th {
-    background-color: #eeeeee;
-    border-top: none;
+    background-color: #606060;
+    border-top: white;
 }
 
 td:first-child {
@@ -52,7 +62,6 @@ td:first-child {
 th:first-child {
     border-left: none;
 }
-/*Copyright (c) 2016 by Tushar Sonawane (http://codepen.io/Tushkiz/pen/xqfsy)*/
 
 * {
     box-sizing: border-box;
@@ -63,18 +72,18 @@ th:first-child {
 }
 
 .main {
-    margin: 100px auto;
-    width: 300px;
+    margin: 200px auto;
+    width: 400px;
 }
 .content-screen {
-    background-color: #eee;
+    background-color: rgba(96,96,96,0.7);
     padding: 20px;
     border-radius: 5px
 }
 
 .title {
     text-align: center;
-    color: #777;
+    color: #ffffff;
 }
 
 .form {
@@ -87,7 +96,8 @@ th:first-child {
 
 .input-label{
     width: 100%;
-    text-align: left;
+    font-weight: bold;
+    text-align: center;
     padding-left: 7px;
     margin-bottom: 5px;
 }
@@ -95,7 +105,8 @@ th:first-child {
 label{
     font-weight: bold;
     font-size: 16px;
-    color: #777777;
+    text-align: center;
+    color: #ffffff;
 }
 
 .houseNumber{
@@ -132,8 +143,8 @@ input:focus {
 
 .btn {
     border: 2px solid transparent;
-    background: #3498DB;
-    color: #ffffff;
+    background-color: rgba(0,114,132,0.9);
+    color: #fff;
     font-size: 16px;
     line-height: 25px;
     padding: 10px 0;
@@ -141,15 +152,15 @@ input:focus {
     text-shadow: none;
     text-align: center;
     border-radius: 3px;
-    box-shadow: none;
+    box-shadow: 1px;
     transition: 0.25s;
     display: block;
     width: 250px;
     margin: 5px auto;
 }
-
+/*Header colour*/
 .btn:hover {
-    background-color: #2980B9;
+    background-color: #00a59b;
 }
 
 /* Logout Button */
@@ -166,8 +177,8 @@ input:focus {
 .logoutBtn {
     border: 2px solid;
     border-color: #004d00;
-    background: #008000;
-    color: #ffffff;
+    background: #00a59b;
+    color: #fff;
     font-size: 16px;
     line-height: 25px;
     padding: 10px 0;    
@@ -175,7 +186,7 @@ input:focus {
     text-shadow: none;
     text-align: center;
     border-radius: 3px;
-    box-shadow: none;
+    box-shadow: 3px;
     transition: 0.25s;
     display: block;
     width: 120px; 
@@ -188,8 +199,8 @@ input:focus {
 /* Error message */
 .error {
     padding: 20px;
-    color: #FF0000;
-    border: 3px solid #FD8F8F;
+    color: #ffffff;
+    border: 3px solid #ffffff;
     border-radius: 5px;
 }
 
