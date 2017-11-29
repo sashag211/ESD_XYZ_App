@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -76,12 +77,6 @@ public class UserController extends HttpServlet {
 
         request.getRequestDispatcher(include).forward(request, response);
 
-        // Store info in request attribute
-        //request.setAttribute("user", username);
-        // Logined, forward to /WEB-INF/views/userInfoView.jsp
-        //RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/docs/UserDashboard");
-        //RequestDispatcher view = request.getRequestDispatcher("/docs/UserDashboard");
-        //view.forward(request, response);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -138,9 +133,10 @@ public class UserController extends HttpServlet {
         double amount = Double.parseDouble(request.getParameter("amount"));
         try {
             if (isMember(bean, user)) {
-                temp = getRowNum(bean, "id", "Claims");
-                bean.executeSQLUpdate("INSERT INTO CLAIMS('id', 'mem_id', 'date', 'rationale', 'status', 'amount') "
-                        + "VALUES (" + ((long) temp.get(0) + 1) + ",'" + user + "','" + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "','" + rationale + "'," + "'SUBMITTED'" + "," + amount + ")");
+                temp = getRowNum1(bean, "id", "Claims");
+                bean.executeSQLUpdate("INSERT INTO ROOT.CLAIMS VALUES (" + ((int) temp.get(0) + 1) + ",'" + user + "','" 
+                + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "','" + rationale + "'," + "'SUBMITTED'" + "," + amount + ")");
+                
                 request.setAttribute("confirm", "succeeded");
             } else {
                 request.setAttribute("confirm", "failed, not paid member");
@@ -151,15 +147,25 @@ public class UserController extends HttpServlet {
         }
     }
 
-    public ArrayList getRowNum(JDBCBean bean, String column, String table) throws SQLException {
-        return (ArrayList) bean.sqlQueryToArrayList("SELECT COUNT(" + column + ") FROM " + table).get(0);
+    public ArrayList getRowNum1(JDBCBean bean, String column, String table) throws SQLException {
+        return (ArrayList) bean.sqlQueryToArrayList("SELECT COUNT(\"id\") FROM ROOT.Claims").get(0);
     }
+    
+    public ArrayList getRowNum2(JDBCBean bean, String column, String table) throws SQLException {
+        return (ArrayList) bean.sqlQueryToArrayList("SELECT COUNT(\"id\") FROM ROOT.Payments").get(0);
+    }
+    
+    
 
     public void makePayment(JDBCBean bean, HttpServletRequest request) {
         ArrayList currentBalanceArr, numOfRows;
         String user = request.getParameter("username");
         String paymentType = request.getParameter("paymentType");
         float amount = Float.parseFloat(request.getParameter("amount"));
+        SimpleDateFormat sqlDateFormatForRegistration = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sqlDateFormatForRegistration.format(Calendar.getInstance().getTime());
+        SimpleDateFormat sqlDateFormatForRegistration1 = new SimpleDateFormat("HH:mm:ss");
+        String time = sqlDateFormatForRegistration1.format(Calendar.getInstance().getTime());
         try {
             currentBalanceArr = checkBalance(bean, user);
             Double currentBal = (Double) currentBalanceArr.get(0);
@@ -168,11 +174,10 @@ public class UserController extends HttpServlet {
                 request.setAttribute("balance", currentBal);
                 request.setAttribute("confirm", "failed, incorrect value");
             } else if (currentBal >= amount) {
-                numOfRows = getRowNum(bean, "id", "payments");
-                bean.executeSQLUpdate("INSERT INTO PAYMENTS('id', 'mem_id', 'type_of_payment', 'amount', 'date') "
-                        + "VALUES (" + ((long) numOfRows.get(0) + 1) + ",'" + user + "','" + paymentType + "'," + amount + ",'" + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "')");
-                bean.executeSQLUpdate("UPDATE MEMBERS SET \"balance\"=" + (currentBal - amount) + " WHERE \"id=\"'" + user
-                        + "'");
+                numOfRows = getRowNum2(bean, "id", "Payments");
+                bean.executeSQLUpdate("INSERT INTO PAYMENTS VALUES (" + ((int) numOfRows.get(0) + 1) + ",'" + user + "','" + paymentType + "'," + amount + ",'" + date + "','" + time + "')");
+                double newbal = currentBal - amount;
+                bean.executeSQLUpdate("UPDATE MEMBERS SET \"balance\"= "+ newbal + "WHERE \"id\"='" + user + "'");
                 request.setAttribute("balance", (currentBal - amount));
                 request.setAttribute("confirm", "succeeded");
             } else {
