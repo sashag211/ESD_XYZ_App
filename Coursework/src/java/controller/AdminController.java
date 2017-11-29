@@ -152,7 +152,7 @@ public class AdminController extends HttpServlet {
         ArrayList claim = new ArrayList();
 
         try {
-            claim = (ArrayList) bean.sqlQueryToArrayList("SELECT * FROM CLAIMS WHERE \"id\"='" + claimID + "'").get(0);
+            claim = (ArrayList) bean.sqlQueryToArrayList("SELECT * FROM CLAIMS WHERE \"id\"=" + claimID).get(0);
         } catch (SQLException ex) {
             System.out.println("SQL failed to execute in AdminController, getClaim. " + ex);
         }
@@ -202,9 +202,9 @@ public class AdminController extends HttpServlet {
         String claimID = request.getParameter("manageClaimAction").split("_")[1];
 
         if (action.equalsIgnoreCase("accept")) {
-            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='APPROVED' WHERE \"id\"='" + claimID + "'");
+            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='APPROVED' WHERE \"id\"=" + claimID);
         } else if (action.equalsIgnoreCase("reject")) {
-            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='REJECTED' WHERE \"id\"='" + claimID + "'");
+            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='REJECTED' WHERE \"id\"=" + claimID);
         }
         getMemberByClaimId(bean, request, claimID);
     }
