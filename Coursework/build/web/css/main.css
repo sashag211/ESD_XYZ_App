@@ -6,6 +6,7 @@
 html {
     height: 100%;
     width: 100%;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 body {
     background-image:url(../resources/back.png);
@@ -23,14 +24,12 @@ body {
 }
 
 .content h1 {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     text-shadow: 2px 2px #474747;
     color: #ffffff;
     text-align:center;
 }
 
-.content h2 {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+.content h2 {    
     color: #ffffff;
     text-align: center;
 }
