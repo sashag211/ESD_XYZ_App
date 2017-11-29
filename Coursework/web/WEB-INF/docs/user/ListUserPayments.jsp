@@ -16,13 +16,14 @@
             <th>Type of Payment</th>
             <th>Amount</th>
             <th>Date</th>
+            <th>Time</th>
         </tr>
         <c:forEach items="${data}" var="row" varStatus="rowStatus">
             <tr>
                 <c:forEach items="${row}" var="column" varStatus="columnStatus">
                     <c:choose>
                         <c:when test="${columnStatus.last}">
-                            <td>£${column}</td>                           
+                            <td>${column}</td>                           
                         </c:when>
                         <c:otherwise>
                             <td>${column}</td>
