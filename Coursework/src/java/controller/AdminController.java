@@ -2,14 +2,19 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.JDBCBean;
 
-//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha
+//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha, Jack
 public class AdminController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -152,7 +157,7 @@ public class AdminController extends HttpServlet {
         ArrayList claim = new ArrayList();
 
         try {
-            claim = (ArrayList) bean.sqlQueryToArrayList("SELECT * FROM CLAIMS WHERE \"id\"='" + claimID + "'").get(0);
+            claim = (ArrayList) bean.sqlQueryToArrayList("SELECT * FROM CLAIMS WHERE \"id\"=" + claimID).get(0);
         } catch (SQLException ex) {
             System.out.println("SQL failed to execute in AdminController, getClaim. " + ex);
         }
@@ -202,9 +207,9 @@ public class AdminController extends HttpServlet {
         String claimID = request.getParameter("manageClaimAction").split("_")[1];
 
         if (action.equalsIgnoreCase("accept")) {
-            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='APPROVED' WHERE \"id\"='" + claimID + "'");
+            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='APPROVED' WHERE \"id\"=" + claimID);
         } else if (action.equalsIgnoreCase("reject")) {
-            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='REJECTED' WHERE \"id\"='" + claimID + "'");
+            bean.executeSQLUpdate("UPDATE CLAIMS SET \"status\"='REJECTED' WHERE \"id\"=" + claimID);
         }
         getMemberByClaimId(bean, request, claimID);
     }
@@ -216,8 +221,14 @@ public class AdminController extends HttpServlet {
         ArrayList approvedClaims = new ArrayList();
         ArrayList activeMembers = new ArrayList();
 
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal2 = Calendar.getInstance();
+        cal2.add(Calendar.YEAR, -1);
+        Date lastYear = cal2.getTime();
+        String formattedDate = df.format(lastYear);
+        
         try {
-            approvedClaims = (ArrayList) bean.sqlQueryToArrayList("SELECT SUM(amount) FROM CLAIMS WHERE \"status\"='APPROVED' AND \"date\" >= DATE_SUB(NOW(),INTERVAL 1 YEAR)").get(0);
+            approvedClaims = (ArrayList) bean.sqlQueryToArrayList("SELECT SUM(\"amount\") FROM CLAIMS WHERE \"status\"='APPROVED' AND \"date\" > '" + formattedDate + "'").get(0);
             activeMembers = (ArrayList) bean.sqlQueryToArrayList("SELECT COUNT(*) FROM MEMBERS WHERE \"status\"='APPROVED'").get(0);
         } catch (SQLException ex) {
             System.out.println("SQL failed to execute in AdminController, chargeMembers. " + ex);
@@ -225,8 +236,10 @@ public class AdminController extends HttpServlet {
 
         //Calculate charge for each member
         Double sumOfClaims = (Double) approvedClaims.get(0);
-        Long sumOfActiveMembers = (Long) activeMembers.get(0);
-        String membersCharge = Double.toString(sumOfClaims / sumOfActiveMembers);
+        Integer sumOfActiveMembers = (Integer) activeMembers.get(0);
+        Double individualMemberCharge = sumOfClaims / sumOfActiveMembers;
+        DecimalFormat decf = new DecimalFormat("####.##");
+        String membersCharge = decf.format(individualMemberCharge);
 
         //Add charge to active members balance
         bean.executeSQLUpdate("UPDATE MEMBERS SET \"balance\"=\"balance\" + " + membersCharge + " WHERE \"status\"='APPROVED'");
