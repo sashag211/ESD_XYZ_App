@@ -26,9 +26,6 @@ public class UserFilter implements Filter {
 
     private static final boolean debug = true;
 
-    // The filter configuration object we are associated with.  If
-    // this value is null, this filter instance is not currently
-    // configured. 
     private FilterConfig filterConfig = null;
 
     public UserFilter() {
@@ -39,27 +36,6 @@ public class UserFilter implements Filter {
         if (debug) {
             log("UserFilter:DoBeforeProcessing");
         }
-
-        // Write code here to process the httpServletRequest and/or httpServletResponse before
-        // the rest of the filter chain is invoked.
-        // For example, a logging filter might log items on the httpServletRequest object,
-        // such as the parameters.
-        /*
-	for (Enumeration en = httpServletRequest.getParameterNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    String values[] = httpServletRequest.getParameterValues(name);
-	    int n = values.length;
-	    StringBuffer buf = new StringBuffer();
-	    buf.append(name);
-	    buf.append("=");
-	    for(int i=0; i < n; i++) {
-	        buf.append(values[i]);
-	        if (i < n-1)
-	            buf.append(",");
-	    }
-	    log(buf.toString());
-	}
-         */
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
@@ -67,24 +43,6 @@ public class UserFilter implements Filter {
         if (debug) {
             log("UserFilter:DoAfterProcessing");
         }
-
-        // Write code here to process the httpServletRequest and/or httpServletResponse after
-        // the rest of the filter chain is invoked.
-        // For example, a logging filter might log the attributes on the
-        // httpServletRequest object after the httpServletRequest has been processed. 
-        /*
-	for (Enumeration en = httpServletRequest.getAttributeNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    Object value = httpServletRequest.getAttribute(name);
-	    log("attribute: " + name + "=" + value.toString());
-
-	}
-         */
-        // For example, a filter might append something to the httpServletResponse.
-        /*
-	PrintWriter respOut = new PrintWriter(httpServletResponse.getWriter());
-	respOut.println("<P><B>This has been appended by an intrusive filter.</B>");
-         */
     }
 
     /**
@@ -112,12 +70,8 @@ public class UserFilter implements Filter {
 
         if (checkIfSessionValid) {
             try {
-                // Valid session continue
                 chain.doFilter(httpServletRequest, httpServletResponse);
             } catch (Throwable t) {
-                // If an exception is thrown somewhere down the filter chain,
-                // we still want to execute our after processing, and then
-                // rethrow the problem after that.
                 problem = t;
                 t.printStackTrace();
             }
@@ -132,8 +86,6 @@ public class UserFilter implements Filter {
 
         doAfterProcessing(httpServletRequest, httpServletResponse);
 
-        // If there was a problem, we want to rethrow it if it is
-        // a known type, otherwise log it.
         if (problem != null) {
             if (problem instanceof ServletException) {
                 throw (ServletException) problem;
