@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha
+//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha, Jack
 
 public class UserFilter implements Filter {
 
