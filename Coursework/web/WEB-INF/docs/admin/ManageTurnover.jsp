@@ -10,7 +10,7 @@
     <h1>Manage XYZ Finances</h1>
 
     <div style="display: none;">
-        ${JDBCBean.executeSQLQuery("SELECT * FROM Claims WHERE status='APPROVED' AND date >= DATE_SUB(NOW(),INTERVAL 1 YEAR)")}
+        ${JDBCBean.executeSQLQuery("SELECT * FROM Claims WHERE \"status\"='APPROVED' AND \"date\" > '2016-12-04'")}
     </div>
 
     <h2>Years Claims</h2>
@@ -40,8 +40,8 @@
         </c:forEach>
     </table>
     <br><br>
-    <h2>Total Claims: £${JDBCBean.sqlQueryToArrayList("SELECT SUM(amount) FROM claims WHERE status='APPROVED' AND date >= DATE_SUB(NOW(),INTERVAL 1 YEAR)")[0][0]}</h2>
-    <h2>Number of active members: ${JDBCBean.sqlQueryToArrayList("SELECT COUNT(*) FROM members WHERE status='APPROVED'")[0][0]}</h2>
+    <h2>Total Claims: £${JDBCBean.sqlQueryToArrayList("SELECT SUM(\"amount\") FROM Claims WHERE \"status\"='APPROVED' AND \"date\" > '2016-12-04'")[0][0]}</h2>
+    <h2>Number of active members: ${JDBCBean.sqlQueryToArrayList("SELECT COUNT(*) FROM members WHERE \"status\"='APPROVED'")[0][0]}</h2>
     
     <c:if test="${membersCharge ne null}">
         <h2>Members charged: £${membersCharge}</h2>      
