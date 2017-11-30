@@ -42,6 +42,7 @@ body {
     border-collapse: separate;
     border-radius: 3px;
     background-color: #ffffff;
+    font-size: 14px;
 }
 
 .content td, th {
