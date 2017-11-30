@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,11 +35,6 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        //Check if session is still valid
-//        if (session.getAttribute("username") == null) {
-//            RequestDispatcher view = request.getRequestDispatcher("/docs/Login");
-//            view.forward(request, response);
-//        }
         JDBCBean bean = (JDBCBean) getServletContext().getAttribute("JDBCBean");
 
         //Find JSP that refered resource
@@ -75,12 +69,6 @@ public class UserController extends HttpServlet {
 
         request.getRequestDispatcher(include).forward(request, response);
 
-        // Store info in request attribute
-        //request.setAttribute("user", username);
-        // Logined, forward to /WEB-INF/views/userInfoView.jsp
-        //RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/docs/UserDashboard");
-        //RequestDispatcher view = request.getRequestDispatcher("/docs/UserDashboard");
-        //view.forward(request, response);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -138,11 +126,6 @@ public class UserController extends HttpServlet {
         try {
             if (isMember(bean, user)) {
                 temp = getRowNum(bean, "'id'", "Claims");
-                // bean.executeSQLUpdate("INSERT INTO ROOT.CLAIMS(\"id\", \"mem_id\", \"date\", \"rationale\", \"status\", \"amount\")"
-                //+ "VALUES (" + ((int) temp.get(0) + 1) + "," + user + "','" + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "','" + rationale + "','" + "'SUBMITTED'" + "','" + amount + ")");
-                //bean.executeSQLUpdate("INSERT INTO ROOT.CLAIMS" + "VALUES('\"+id+\"','\"+ ((int) temp.get(0) + 1) +\"','\"+QuotationNo.getText()+\"','\"+Date.getDate()+\"')");
-                // bean.executeSQLUpdate("INSERT INTO ROOT.CLAIMS('id','mem_id',' date, rationale, status, amount) "   
-                //    + "VALUES (" + ((int) temp.get(0) + 1) + ",'" + user + "','" + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "','" + rationale + "'," + "'SUBMITTED'" + "," + amount + ")");
                 bean.executeSQLUpdate("INSERT INTO ROOT.CLAIMS VALUES (" + ((int) temp.get(0) + 1) + ",'" + user + "','" + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "','" + rationale + "'," + "'SUBMITTED'" + "," + amount + ")");
                 request.setAttribute("confirm", "succeeded");
             } else {
@@ -178,9 +161,6 @@ public class UserController extends HttpServlet {
                 numOfRows = getRowNum(bean, "'id'", "payments");
                 bean.executeSQLUpdate("INSERT INTO PAYMENTS VALUES (" + ((int) numOfRows.get(0) + 1) + ",'" + user + "','" + paymentType + "'," + amount + ",'" + date + "','" + time + "')");
                 double newbal = currentBal - amount;
-//                bean.executeSQLUpdate("UPDATE MEMBERS SET \"balance\"=" + newbal + " WHERE \"id\"=\"'" + user
-//                        + "'");
-               // bean.executeSQLUpdate("UPDATE MEMBERS SET 'balance' =" + newbal + " WHERE id='" + user + "'");
                 bean.executeSQLUpdate("UPDATE MEMBERS SET \"balance\"= "+ newbal + "WHERE \"id\"='" + user + "'");
                 request.setAttribute("balance", (currentBal - amount));
                 request.setAttribute("confirm", "succeeded");
