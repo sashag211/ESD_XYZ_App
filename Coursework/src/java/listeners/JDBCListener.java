@@ -8,7 +8,7 @@ import model.JDBCBean;
 /**
  * Web application lifecycle listener.
  *
- * Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha
+ * Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha, Jack
  */
 public class JDBCListener implements ServletContextListener {
 
@@ -36,8 +36,5 @@ public class JDBCListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-
-        //Stop JDBC connection
-//        bean.stopJDBC();
     }
 }

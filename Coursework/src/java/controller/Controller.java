@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha
+//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha, Jack
 @WebServlet(name = "Controller", urlPatterns = {"/Controller", "/docs/*"})
 public class Controller extends HttpServlet {
 
@@ -24,10 +23,7 @@ public class Controller extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        //Get the valid pages that can be forwarded too
-        //HashMap validPages = (HashMap) getServletContext().getAttribute("ValidPages");
-        //Get session attribute		 
+	 
         HttpSession session = request.getSession();
 
         //Always Forward to main.jsp

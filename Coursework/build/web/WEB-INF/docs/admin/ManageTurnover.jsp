@@ -10,7 +10,11 @@
     <h1>Manage XYZ Finances</h1>
 
     <div style="display: none;">
+
         ${JDBCBean.executeSQLQuery("SELECT * FROM Claims WHERE status='APPROVED' AND date >= DATE_SUB(NOW(),INTERVAL 1 YEAR)")}
+
+        ${JDBCBean.manageTurnover()}
+
     </div>
 
     <h2>Years Claims</h2>
@@ -29,7 +33,7 @@
                 <c:forEach items="${row}" var="column" varStatus="columnStatus">
                     <c:choose>
                         <c:when test="${columnStatus.last}">
-                            <td>£${column}</td>                              
+                            <td>Â£${column}</td>                              
                         </c:when>
                         <c:otherwise>
                             <td>${column}</td>
@@ -40,11 +44,11 @@
         </c:forEach>
     </table>
     <br><br>
-    <h2>Total Claims: £${JDBCBean.sqlQueryToArrayList("SELECT SUM(amount) FROM claims WHERE status='APPROVED' AND date >= DATE_SUB(NOW(),INTERVAL 1 YEAR)")[0][0]}</h2>
-    <h2>Number of active members: ${JDBCBean.sqlQueryToArrayList("SELECT COUNT(*) FROM members WHERE status='APPROVED'")[0][0]}</h2>
+    <h2>Total Claims: Â£${JDBCBean.getTurnover()[0][0]}</h2>
+    <h2>Number of active members: ${JDBCBean.sqlQueryToArrayList("SELECT COUNT(*) FROM MEMBERS WHERE \"status\"='APPROVED'")[0][0]}</h2>
     
     <c:if test="${membersCharge ne null}">
-        <h2>Members charged: £${membersCharge}</h2>      
+        <h2>Members charged: Â£${membersCharge}</h2>      
     </c:if>
     <form action="${pageContext.request.contextPath}/AdminController" method="post">   
         <input type="hidden" name="viewId" value="/ManageTurnover">

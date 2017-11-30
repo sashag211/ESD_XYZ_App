@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,12 +36,6 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        //Check if session is still valid
-//        if (session.getAttribute("username") == null) {
-//            RequestDispatcher view = request.getRequestDispatcher("/docs/Login");
-//            view.forward(request, response);
-//        }
-     
         JDBCBean bean = (JDBCBean) getServletContext().getAttribute("JDBCBean");
 
         //Find JSP that refered resource
@@ -133,10 +126,9 @@ public class UserController extends HttpServlet {
         double amount = Double.parseDouble(request.getParameter("amount"));
         try {
             if (isMember(bean, user)) {
-                temp = getRowNum1(bean, "id", "Claims");
-                bean.executeSQLUpdate("INSERT INTO ROOT.CLAIMS VALUES (" + ((int) temp.get(0) + 1) + ",'" + user + "','" 
-                + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "','" + rationale + "'," + "'SUBMITTED'" + "," + amount + ")");
-                
+                temp = getRowNum1(bean, "'id'", "Claims");
+                bean.executeSQLUpdate("INSERT INTO ROOT.CLAIMS VALUES (" + ((int) temp.get(0) + 1) + ",'" + user + "','" + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "','" + rationale + "'," + "'SUBMITTED'" + "," + amount + ")");
+              
                 request.setAttribute("confirm", "succeeded");
             } else {
                 request.setAttribute("confirm", "failed, not paid member");

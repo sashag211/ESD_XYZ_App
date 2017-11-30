@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha
+//Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha, Jack
 
 public class Login extends HttpServlet {
 
@@ -36,10 +36,7 @@ public class Login extends HttpServlet {
 
         ArrayList<ArrayList<Object>> requestedUserDetail = new ArrayList<>();
 
-        //checks if user exists in USERS table
-        //get all info into an array and use to filter admin and user
-        //select("SELECT * FROM USERS WHERE \"id\"='"+user+"' AND \"password\"='" + password + "' AND \"status\"='"+status+"'");
-
+        
         try {
             requestedUserDetail = bean.sqlQueryToArrayList("SELECT * FROM ROOT.USERS WHERE \"id\"='" + username + "'");
         } catch (SQLException ex) {
@@ -83,18 +80,7 @@ public class Login extends HttpServlet {
 
             response.sendRedirect(request.getContextPath() + "/docs/admin/AdminDashboard");
         }
-        else if (bean.exists(username, password, "APPROVED")) {
-            //Making it thread safe
-            synchronized (session) {
-                // Store user info in Session
-                session.setAttribute("username", username);
-            }
-            Cookie userID = new Cookie("username", username);
-            //Store user info in Cookie
-            response.addCookie(userID);
-
-            response.sendRedirect(request.getContextPath() + "/docs/user/UserDashboard");
-        } else {
+         else {
             //Making it thread safe
             synchronized (session) {
                 // Store user info in Session
