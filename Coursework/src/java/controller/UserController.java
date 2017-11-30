@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import model.JDBCBean;
 
 //Created on : 27-Nov-2017, 13:16:36, Author: Frazer, Sasha, Jack
+
 public class UserController extends HttpServlet {
 
     /**
@@ -125,8 +126,9 @@ public class UserController extends HttpServlet {
         double amount = Double.parseDouble(request.getParameter("amount"));
         try {
             if (isMember(bean, user)) {
-                temp = getRowNum(bean, "'id'", "Claims");
+                temp = getRowNum1(bean, "'id'", "Claims");
                 bean.executeSQLUpdate("INSERT INTO ROOT.CLAIMS VALUES (" + ((int) temp.get(0) + 1) + ",'" + user + "','" + new java.sql.Date(Calendar.getInstance().getTime().getTime()) + "','" + rationale + "'," + "'SUBMITTED'" + "," + amount + ")");
+              
                 request.setAttribute("confirm", "succeeded");
             } else {
                 request.setAttribute("confirm", "failed, not paid member");
@@ -137,19 +139,25 @@ public class UserController extends HttpServlet {
         }
     }
 
-    public ArrayList getRowNum(JDBCBean bean, String column, String table) throws SQLException {
-        return (ArrayList) bean.sqlQueryToArrayList("SELECT COUNT(" + column + ") FROM ROOT." + table).get(0);
+    public ArrayList getRowNum1(JDBCBean bean, String column, String table) throws SQLException {
+        return (ArrayList) bean.sqlQueryToArrayList("SELECT COUNT(\"id\") FROM ROOT.Claims").get(0);
     }
+    
+    public ArrayList getRowNum2(JDBCBean bean, String column, String table) throws SQLException {
+        return (ArrayList) bean.sqlQueryToArrayList("SELECT COUNT(\"id\") FROM ROOT.Payments").get(0);
+    }
+    
+    
 
     public void makePayment(JDBCBean bean, HttpServletRequest request) {
         ArrayList currentBalanceArr, numOfRows;
         String user = request.getParameter("username");
         String paymentType = request.getParameter("paymentType");
+        float amount = Float.parseFloat(request.getParameter("amount"));
         SimpleDateFormat sqlDateFormatForRegistration = new SimpleDateFormat("yyyy-MM-dd");
         String date = sqlDateFormatForRegistration.format(Calendar.getInstance().getTime());
         SimpleDateFormat sqlDateFormatForRegistration1 = new SimpleDateFormat("HH:mm:ss");
         String time = sqlDateFormatForRegistration1.format(Calendar.getInstance().getTime());
-        float amount = Float.parseFloat(request.getParameter("amount"));
         try {
             currentBalanceArr = checkBalance(bean, user);
             Double currentBal = (Double) currentBalanceArr.get(0);
@@ -158,7 +166,7 @@ public class UserController extends HttpServlet {
                 request.setAttribute("balance", currentBal);
                 request.setAttribute("confirm", "failed, incorrect value");
             } else if (currentBal >= amount) {
-                numOfRows = getRowNum(bean, "'id'", "payments");
+                numOfRows = getRowNum2(bean, "id", "Payments");
                 bean.executeSQLUpdate("INSERT INTO PAYMENTS VALUES (" + ((int) numOfRows.get(0) + 1) + ",'" + user + "','" + paymentType + "'," + amount + ",'" + date + "','" + time + "')");
                 double newbal = currentBal - amount;
                 bean.executeSQLUpdate("UPDATE MEMBERS SET \"balance\"= "+ newbal + "WHERE \"id\"='" + user + "'");

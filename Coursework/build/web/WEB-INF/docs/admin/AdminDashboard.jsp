@@ -8,11 +8,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/resources/AdminDashboardNavBar.jsp" %>
 
-<div class="main">
-    <div class="content-screen">
-        <div class="title">
-            <h1>Welcome <br>${adminUsername}</h1>
-        </div>              
-    </div>
+
+<div class="content">
+    <h1>Admin Dashboard</h1>
+    <h1>Welcome, select an option from the left.</h1>    
 </div>
 

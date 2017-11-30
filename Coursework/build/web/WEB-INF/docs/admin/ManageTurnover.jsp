@@ -10,7 +10,11 @@
     <h1>Manage XYZ Finances</h1>
 
     <div style="display: none;">
+
+        ${JDBCBean.executeSQLQuery("SELECT * FROM Claims WHERE status='APPROVED' AND date >= DATE_SUB(NOW(),INTERVAL 1 YEAR)")}
+
         ${JDBCBean.manageTurnover()}
+
     </div>
 
     <h2>Years Claims</h2>
